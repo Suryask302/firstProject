@@ -13,11 +13,13 @@ try{
         let userCreated = await AuthorModel.create(user)
         res.send({data: userCreated})
 
-    }else {res.status(400).send( { msg : "Please Add Some Content " } )}
+    }else { res.status(400).send( { msg : "Please Add Some Content " } )}
     
     
 }catch(err){res.status(500).send( { msg : err.message } )}
 }
+
+
 
 ////   login_Part   ////
 
@@ -35,7 +37,7 @@ try {
       return res.status(404).send( { status: false, msg: "Author Not Found",} );
   
   
-    let token = jwt.sign(
+      let token = jwt.sign(
       {
         authorId: Author._id.toString(),
         groupno: "42"

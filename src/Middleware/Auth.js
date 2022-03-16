@@ -5,7 +5,9 @@ const jwt = require("jsonwebtoken")
 const AuthorModel = require("../models/AuthorModel");
 const blogModel = require("../models/blogModel");
 
-const verifyUser =async (req ,res , next)=>{
+////  Authenication_Part  ////
+
+const verifyUser =async (req ,res , next) =>{
 
 try {
 
@@ -42,12 +44,12 @@ try {
   next()
 
 } catch (error) { 
-    return res.status(500).send({Error : error.message})
+    return res.status(500).send( { Error : error.message } )
 }
 };
 
 
-
+////   authorization_Part   ////
 
 let authorization = async (req, res, next) => {
 
@@ -64,7 +66,11 @@ let authorization = async (req, res, next) => {
         }
 
         let blogId = req.params.blogId
+        
         let blog = await blogModel.findById(blogId)
+        if(!blog){
+            return res.status(404).send( { status : false , msg : "Blog Not Found , Please Check Blog Id"  } )
+        }
      
         let ownerOfBlog = blog.authorId
      
@@ -76,7 +82,7 @@ let authorization = async (req, res, next) => {
         next()
 
     } catch (error) {
-        res.send(error)
+        res.send(error.message)
     }
 
 };
