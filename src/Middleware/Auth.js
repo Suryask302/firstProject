@@ -23,7 +23,7 @@ try {
 
     let data = req.body
 
-    if(Object.keys(data).length !== 0){
+    if( Object.keys(data).length !== 0 ){
 
         if(data.authorId !== decodeToken.authorId){
             return res.status(403).send( { status : false , msg :"you are Not Authorized !" } )
@@ -67,7 +67,7 @@ let authorization = async (req, res, next) => {
 
         let blogId = req.params.blogId
         
-        let blog = await blogModel.findById(blogId)
+        let blog = await blogModel.findById( blogId )
         if(!blog){
             return res.status(404).send( { status : false , msg : "Blog Not Found , Please Check Blog Id"  } )
         }

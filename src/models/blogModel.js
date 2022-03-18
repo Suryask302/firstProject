@@ -26,7 +26,7 @@ const blogSchema = new mongoose.Schema({
     },
     category: {
         type: Array,
-        required: true
+        required: [true , 'category is Required']
     },
     subcategory:{
         type : Array ,

@@ -12,6 +12,7 @@ const createBlog = async (req, res) => {
 
     try {
         let blog = req.body
+        
         if (Object.keys(blog).length === 0) {
             res.status(400).send({ status: false, msg: " Add Some Content To The Body" })
         }
@@ -55,7 +56,7 @@ const getBlogs = async function (req, res) {
         return res.status(200).send({ status: true, msg: avilableBlogs })
 
     } catch (err) {
-        res.status(500).send({ Error: err.message })
+        res.status(500).send( { Error: err.message } )
     }
 }
 
@@ -78,6 +79,9 @@ const updateBlogs = async (req, res) => {
         if (ifExist.isDeleted == false) {
 
             let data = req.body
+            if(Object.keys(data).length == 0){
+                return res.status(400).send( { Status : false , msg : "Invalid Data Input" } )
+            }
             let newTitle = req.body.title
             let newBody = req.body.body
             let newTags = req.body.tags
@@ -93,6 +97,8 @@ const updateBlogs = async (req, res) => {
             console.log(updatedBlog)
             return res.status(200).send({ Status: true, data: updatedBlog })
 
+        }else{
+            return res.status(400).send( { Error : "Data Is Alredy Deleted"} )
         }
 
     } catch (error) {
@@ -132,6 +138,8 @@ const deleteById = async (req, res) => {
     }
 }
 
+
+
 ///////     DeleteBy_QueryParams      /////
 
 const DeleteBy_QueryParams = async (req, res) => {
@@ -151,11 +159,15 @@ const DeleteBy_QueryParams = async (req, res) => {
 
         let filters = req.query
 
-        if(!filters.authorId){
-            filters.authorId = loggedInAuthor
+        if( Object.keys(filters).length == 0 ){
+            return res.status(400).send( { Status : false , msg : "Please Add some Filters !" } )
         }
 
-        if(loggedInAuthor != filters.authorId){
+        if( !filters.authorId ){
+            return res.status(400).send( { Status : false , msg : "cannot Modify Data Without Author Id" } )
+        }
+
+        if( loggedInAuthor != filters.authorId ){
             return res.status(401).send( { status: false , msg : "User logged is not allowed to modify the requested users data" } )
         }
         
