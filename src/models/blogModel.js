@@ -6,47 +6,53 @@ const blogSchema = new mongoose.Schema({
 
     title: {
         type: String,
-        required: [true , 'Title Is Required']
+        required: [true, 'Title Is Required'],
+        trim: true
     },
 
     body: {
         type: String,
-        required: [true ,'Body Should Not Be Empty' ]
+        required: [true, 'Body Should Not Be Empty'],
+        trim: true
     },
 
     authorId: {
-        type : ObjectId,
-        ref : "Author"
-    },
-    tags: {
-        type: Array,
-        required : [true, 'tags are required'],
-        unique : [true, 'please enter unique tags']
-       
-    },
-    category: {
-        type: Array,
-        required: [true , 'category is Required']
-    },
-    subcategory:{
-        type : Array ,
-    },
-    
-    isPublished : {
-        type : Boolean ,
-        default : false
+        type: ObjectId,
+        required: [true, 'Author Id is Required'],
+        ref: "Author"
 
     },
-    publishedAt : {
-        type : Date
+
+    tags: [  { type: String, required: [true, 'tags are required'] } ],
+
+    
+    category: {
+        type: String,
+        trim : true ,
+        required: [true, 'category is Required']
     },
-    isDeleted : {
-        type : Boolean ,
-        default : false
+    subcategory:[
+       { type: String, trim : true }
+    ],
+
+    isPublished: {
+        type: Boolean,
+        default: false
+
     },
-    deletedAt : {
-        type : Date ,
-        
+    publishedAt: {
+        type: Date,
+        default: null
+    },
+
+    isDeleted: {
+        type: Boolean,
+        default: false
+    },
+
+    deletedAt: {
+        type: Date,
+        default: null
     }
 
 }, { timestamps: true });

@@ -9,17 +9,18 @@ const blogController = require("../controllers/blogController")
 
 
 router.post("/authors", authorController.createAuthor)
+router.post("/login",authorController.loginAuthor)
 
 router.post("/blogs",midW.verifyUser,blogController.createBlog)
 router.get("/blogs/:userId",midW.verifyUser,blogController.getBlogs)
 
 
-router.put("/blogs/:blogId",midW.authorization, blogController.updateBlogs)
-router.delete("/blogs/:blogId",midW.authorization,blogController.deleteById)
+router.put("/blogs/:blogId",midW.verifyUser , blogController.updateBlogs)
+router.delete("/blogs/:blogId",midW.verifyUser,blogController.deleteById)
 
 
-router.delete("/blogs",blogController.DeleteBy_QueryParams)
+router.delete("/blogs",midW.verifyUser,blogController.DeleteBy_QueryParams)
 
-router.post("/login",authorController.loginAuthor)
+
 
 module.exports = router;
