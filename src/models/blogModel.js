@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId
+
 const blogSchema = new mongoose.Schema({
 
     title: {
@@ -27,19 +28,23 @@ const blogSchema = new mongoose.Schema({
 
     
     category: {
+
         type: String,
         trim : true ,
         required: [true, 'category is Required']
     },
+
     subcategory:[
        { type: String, trim : true }
     ],
 
     isPublished: {
+        
         type: Boolean,
         default: false
 
     },
+
     publishedAt: {
         type: Date,
         default: null

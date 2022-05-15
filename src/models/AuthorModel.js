@@ -1,6 +1,7 @@
 
 const validator = require('validator')
 const mongoose = require('mongoose');
+
 const AuthorSchema = new mongoose.Schema({
 
 
@@ -23,18 +24,21 @@ const AuthorSchema = new mongoose.Schema({
         enum: ["Mr", "Mrs", "Miss" , "Mast"],
         required: [true , 'title is required']
     },
+
     email: {
         type: String,
         required: [true , 'email is required'],
         unique: true,
         lowercase : true,
         trim : true,
+        
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error("Invalid Email !")
             }
         }
     },
+
     password: {
         type: String,
         trim: true,

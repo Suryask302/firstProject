@@ -16,6 +16,7 @@ const isValid = (value) => {
 
 }
 
+
 const isValidTitle = (title) => {
   return ['Mr', 'Mrs', 'Miss', 'Mast'].indexOf(title) !== -1
 }
@@ -29,6 +30,7 @@ const createAuthor = async function (req, res) {
   try {
 
     let requestBody = req.body;
+
     if (!isValidRequestBody(requestBody)) {
       return res.status(400).send({ status: false, msg: "invalid request parameters . Please Provide Author Details" })
     }
@@ -74,8 +76,7 @@ const createAuthor = async function (req, res) {
     }
 
     
-
-    const isEmailAlreadyUsed = await AuthorModel.findOne({ email });
+    const isEmailAlreadyUsed = await AuthorModel.findOne( { email } );
 
     if (isEmailAlreadyUsed) {
       res.status(400).send({ Status: false, message: `${email} is Already Registerd` })
@@ -84,7 +85,16 @@ const createAuthor = async function (req, res) {
 
     // Validation Ends
 
-    const authorData = { fname, lname, title, email, password }
+    const authorData = {
+
+      fname,
+      lname,
+      title,
+      email,
+      password
+
+    }
+    
     const newAuthor = await AuthorModel.create(authorData);
     res.status(201).send({ status: true, message: 'Author Created Successfully', data: newAuthor })
 
@@ -132,7 +142,7 @@ const loginAuthor = async function (req, res) {
       return res.status(404).send({ status: false, msg: "Author Not Found , plz check Credintials", });
 
 
-    let token = jwt.sign(
+    let token = jwt.sign (
       {
         authorId: Author._id.toString(),
         groupno: "42",
@@ -140,7 +150,8 @@ const loginAuthor = async function (req, res) {
       },
       "this-is-aSecretTokenForLogin"
     );
-    res.setHeader("x-api-key", token);
+    
+    res.setHeader( "x-api-key", token );
     res.status(200).send({ status: true, message: "Author login SuccesFull", data: token });
 
 

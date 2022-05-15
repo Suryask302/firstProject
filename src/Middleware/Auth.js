@@ -18,7 +18,7 @@ try {
         return res.status(401).send( { status : false , msg : "Invalid Token" } )
     }
 
-    req['authorId']= decodeToken.authorId
+    req['authorId'] = decodeToken.authorId
     
   
   next()

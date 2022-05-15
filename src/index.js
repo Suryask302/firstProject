@@ -8,7 +8,7 @@ const app = express();
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended : true }));
 
 
 mongoose.connect("mongodb+srv://suryask:mongo302@mycluster1.ogvku.mongodb.net/suryask-DB?authSource=admin&replicaSet=atlas-ryoz1b-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true", {
